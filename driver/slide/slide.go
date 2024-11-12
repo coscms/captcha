@@ -50,14 +50,14 @@ func (a *Slide) MakeData(ctx context.Context) (*captcha.Data, error) {
 		return nil, captcha.ErrGenerateFailed
 	}
 
-	masterImageBase64 := gen.GetMasterImage().ToBase64()
-	if len(masterImageBase64) == 0 {
-		return nil, captcha.ErrBase64EncodeFailed
+	masterImageBase64, err := gen.GetMasterImage().ToBase64()
+	if err != nil {
+		return nil, fmt.Errorf(`%w: %v`, captcha.ErrBase64EncodeFailed,err)
 	}
 
-	tileImageBase64 := gen.GetTileImage().ToBase64()
-	if len(tileImageBase64) == 0 {
-		return nil, captcha.ErrBase64EncodeFailed
+	tileImageBase64, err := gen.GetTileImage().ToBase64()
+	if err != nil {
+		return nil, fmt.Errorf(`%w: %v`, captcha.ErrBase64EncodeFailed,err)
 	}
 
 	jsonBytes, err := json.Marshal(blockData)

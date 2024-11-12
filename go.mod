@@ -2,7 +2,7 @@ module github.com/coscms/captcha
 
 go 1.23.1
 
-replace github.com/wenlng/go-captcha => ../../admpub/go-captcha
+replace github.com/wenlng/go-captcha/v2 => ../../admpub/go-captcha/v2
 
 require (
 	github.com/admpub/cache v0.7.2
