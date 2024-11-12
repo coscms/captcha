@@ -4,7 +4,6 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"strconv"
 
 	"github.com/coscms/captcha"
 	"github.com/wenlng/go-captcha/v2/rotate"
@@ -22,7 +21,7 @@ func (a *Base) Verify(ctx context.Context, key string, response string) error {
 	if len(key) == 0 || len(response) == 0 {
 		return fmt.Errorf(`%w: %s`, captcha.ErrParameterRequired, `response or key`)
 	}
-	sAngle, err := strconv.ParseInt(response, 10, 64)
+	sAngle, err := captcha.ParseInt64(response)
 	if err != nil {
 		return fmt.Errorf(`%w: %v`, captcha.ErrInvalidResponse, err)
 	}

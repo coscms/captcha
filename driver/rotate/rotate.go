@@ -13,6 +13,10 @@ func init() {
 	captcha.Register(`rotate`, NewRotate)
 }
 
+const (
+	TypeBasic = `basic`
+)
+
 func NewRotate(captchaType string, store captcha.Storer) (captcha.Driver, error) {
 	a := &Rotate{
 		Base:   NewBase(store),

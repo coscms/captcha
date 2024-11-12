@@ -13,6 +13,11 @@ func init() {
 	captcha.Register(`slide`, NewSlide)
 }
 
+const (
+	TypeBasic  = `basic`
+	TypeRegion = `region`
+)
+
 func NewSlide(captchaType string, store captcha.Storer) (captcha.Driver, error) {
 	a := &Slide{
 		Base:   NewBase(store),

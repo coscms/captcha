@@ -18,18 +18,18 @@ type Storer interface {
 }
 
 type Data struct {
-	Key   string
-	Image string
-	Thumb string
-	Tile  *Tile
+	Key   string `json:"key"`
+	Image string `json:"image,omitempty"`
+	Thumb string `json:"thumb,omitempty"`
+	Tile  *Tile  `json:"tile,omitempty"`
 }
 
 type Tile struct {
-	Image   string
-	Width   int
-	Height  int
-	OffsetX int
-	OffsetY int
+	Image   string `json:"image"`
+	Width   int    `json:"width"`
+	Height  int    `json:"height"`
+	OffsetX int    `json:"x"`
+	OffsetY int    `json:"y"`
 }
 
 const MaxAge = 1800 //seconds

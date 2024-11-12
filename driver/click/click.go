@@ -13,6 +13,11 @@ func init() {
 	captcha.Register(`click`, NewClick)
 }
 
+const (
+	TypeBasic = `basic`
+	TypeShape = `shape`
+)
+
 func NewClick(captchaType string, store captcha.Storer) (captcha.Driver, error) {
 	a := &Click{
 		Base:   NewBase(store),

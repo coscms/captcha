@@ -4,7 +4,6 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"strconv"
 	"strings"
 
 	"github.com/coscms/captcha"
@@ -40,8 +39,8 @@ func (a *Base) Verify(ctx context.Context, key string, response string) error {
 			dot := dct[i]
 			j := i * 2
 			k := i*2 + 1
-			sx, _ := strconv.ParseInt(src[j], 10, 64)
-			sy, _ := strconv.ParseInt(src[k], 10, 64)
+			sx, _ := captcha.ParseInt64(src[j])
+			sy, _ := captcha.ParseInt64(src[k])
 			ok = click.CheckPoint(sx, sy, int64(dot.X), int64(dot.Y), int64(dot.Width), int64(dot.Height), 0)
 			if !ok {
 				break

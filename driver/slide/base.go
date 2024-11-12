@@ -4,7 +4,6 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"strconv"
 	"strings"
 
 	"github.com/coscms/captcha"
@@ -38,8 +37,8 @@ func (a *Base) Verify(ctx context.Context, key string, response string) error {
 		return fmt.Errorf(`%w: %s`, captcha.ErrIllegalKey, key)
 	}
 
-	sx, _ := strconv.ParseInt(src[0], 10, 64)
-	sy, _ := strconv.ParseInt(src[1], 10, 64)
+	sx, _ := captcha.ParseInt64(src[0])
+	sy, _ := captcha.ParseInt64(src[1])
 	ok := slide.CheckPoint(sx, sy, int64(dct.X), int64(dct.Y), 4)
 	if !ok {
 		return captcha.ErrInvalidResponse
