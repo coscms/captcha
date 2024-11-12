@@ -22,7 +22,7 @@ func (a *Base) Verify(ctx context.Context, key string, response string) error {
 	if len(key) == 0 || len(response) == 0 {
 		return fmt.Errorf(`%w: %s`, captcha.ErrParameterRequired, `response or key`)
 	}
-	sAngle, err := strconv.ParseFloat(response, 64)
+	sAngle, err := strconv.ParseInt(response, 10, 64)
 	if err != nil {
 		return fmt.Errorf(`%w: %v`, captcha.ErrInvalidResponse, err)
 	}
@@ -36,7 +36,7 @@ func (a *Base) Verify(ctx context.Context, key string, response string) error {
 		return fmt.Errorf(`%w: %s`, captcha.ErrIllegalKey, key)
 	}
 
-	ok := rotate.CheckAngle(int64(sAngle), int64(dct.Angle), 2)
+	ok := rotate.CheckAngle(sAngle, int64(dct.Angle), 2)
 	if !ok {
 		return captcha.ErrInvalidResponse
 	}

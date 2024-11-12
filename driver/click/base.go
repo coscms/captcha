@@ -40,10 +40,9 @@ func (a *Base) Verify(ctx context.Context, key string, response string) error {
 			dot := dct[i]
 			j := i * 2
 			k := i*2 + 1
-			sx, _ := strconv.ParseFloat(src[j], 64)
-			sy, _ := strconv.ParseFloat(src[k], 64)
-
-			ok = click.CheckPoint(int64(sx), int64(sy), int64(dot.X), int64(dot.Y), int64(dot.Width), int64(dot.Height), 0)
+			sx, _ := strconv.ParseInt(src[j], 10, 64)
+			sy, _ := strconv.ParseInt(src[k], 10, 64)
+			ok = click.CheckPoint(sx, sy, int64(dot.X), int64(dot.Y), int64(dot.Width), int64(dot.Height), 0)
 			if !ok {
 				break
 			}

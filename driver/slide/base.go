@@ -38,9 +38,9 @@ func (a *Base) Verify(ctx context.Context, key string, response string) error {
 		return fmt.Errorf(`%w: %s`, captcha.ErrIllegalKey, key)
 	}
 
-	sx, _ := strconv.ParseFloat(src[0], 64)
-	sy, _ := strconv.ParseFloat(src[1], 64)
-	ok := slide.CheckPoint(int64(sx), int64(sy), int64(dct.X), int64(dct.Y), 4)
+	sx, _ := strconv.ParseInt(src[0], 10, 64)
+	sy, _ := strconv.ParseInt(src[1], 10, 64)
+	ok := slide.CheckPoint(sx, sy, int64(dct.X), int64(dct.Y), 4)
 	if !ok {
 		return captcha.ErrInvalidResponse
 	}
