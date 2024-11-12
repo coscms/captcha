@@ -1,12 +1,12 @@
 package captcha
 
 import (
-	"strings"
-	"strconv"
 	"crypto/md5"
 	"encoding/hex"
 	"encoding/json"
 	"net/http"
+	"strconv"
+	"strings"
 )
 
 func Md5(b []byte) string {
@@ -15,8 +15,8 @@ func Md5(b []byte) string {
 	return hex.EncodeToString(m.Sum(nil))
 }
 
-func ParseInt64(s string) (int64,error){
-	return strconv.ParseInt(strings.SplitN(s,`.`,2)[0], 10, 64)
+func ParseInt64(s string) (int64, error) {
+	return strconv.ParseInt(strings.SplitN(s, `.`, 2)[0], 10, 64)
 }
 
 func JSON(w http.ResponseWriter, data interface{}, code ...int) {
@@ -27,7 +27,6 @@ func JSON(w http.ResponseWriter, data interface{}, code ...int) {
 	}
 	h := w.Header()
 	h.Set("Content-Type", "application/json; charset=utf-8")
-	h.Set("X-Content-Type-Options", "nosniff")
 	if len(code) > 0 && code[0] > 0 {
 		w.WriteHeader(code[0])
 	} else {
