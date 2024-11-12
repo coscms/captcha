@@ -9,18 +9,23 @@ import (
 	"github.com/wenlng/go-captcha/v2/slide"
 )
 
-func NewSlide(captchaType string, store captcha.Storer) *Slide {
+func init() {
+	captcha.Register(`slide`, NewSlide)
+}
+
+func NewSlide(captchaType string, store captcha.Storer) (captcha.Driver, error) {
 	a := &Slide{
 		Base:   NewBase(store),
 		maxAge: captcha.MaxAge,
 		cType:  captchaType,
 	}
+	var err error
 	if captchaType == `region` {
-		a.initRegion()
+		err = a.initRegion()
 	} else {
-		a.initBasic()
+		err = a.initBasic()
 	}
-	return a
+	return a, err
 }
 
 type Slide struct {

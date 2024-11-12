@@ -1,8 +1,6 @@
 package click
 
 import (
-	"log"
-
 	"github.com/golang/freetype/truetype"
 	"github.com/wenlng/go-captcha-assets/bindata/chars"
 	"github.com/wenlng/go-captcha-assets/resources/fonts/fzshengsksjw"
@@ -11,7 +9,7 @@ import (
 	"github.com/wenlng/go-captcha/v2/click"
 )
 
-func (a *Click) initBasic() {
+func (a *Click) initBasic() error {
 	builder := click.NewBuilder(
 		click.WithRangeLen(option.RangeVal{Min: 4, Max: 6}),
 		click.WithRangeVerifyLen(option.RangeVal{Min: 2, Max: 4}),
@@ -40,13 +38,13 @@ func (a *Click) initBasic() {
 	// fonts
 	fonts, err := fzshengsksjw.GetFont()
 	if err != nil {
-		log.Fatalln(err)
+		return err
 	}
 
 	// background images
 	imgs, err := images.GetImages()
 	if err != nil {
-		log.Fatalln(err)
+		return err
 	}
 
 	// thumb images
@@ -97,4 +95,5 @@ func (a *Click) initBasic() {
 		click.WithBackgrounds(imgs),
 	)
 	a.bLight = builder.Make()
+	return err
 }

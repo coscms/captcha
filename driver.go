@@ -4,6 +4,8 @@ import (
 	"context"
 )
 
+type Constructor func(captchaType string, store Storer) (Driver, error)
+
 type Driver interface {
 	MakeData(ctx context.Context) (*Data, error)
 	Verify(ctx context.Context, key string, response string) error

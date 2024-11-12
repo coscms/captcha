@@ -9,14 +9,18 @@ import (
 	"github.com/wenlng/go-captcha/v2/rotate"
 )
 
-func NewRotate(captchaType string, store captcha.Storer) *Rotate {
+func init() {
+	captcha.Register(`rotate`, NewRotate)
+}
+
+func NewRotate(captchaType string, store captcha.Storer) (captcha.Driver, error) {
 	a := &Rotate{
 		Base:   NewBase(store),
 		maxAge: captcha.MaxAge,
 		cType:  captchaType,
 	}
-	a.initBasic()
-	return a
+	err := a.initBasic()
+	return a, err
 }
 
 type Rotate struct {

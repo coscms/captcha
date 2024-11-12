@@ -9,18 +9,23 @@ import (
 	"github.com/wenlng/go-captcha/v2/click"
 )
 
-func NewClick(captchaType string, store captcha.Storer) *Click {
+func init() {
+	captcha.Register(`click`, NewClick)
+}
+
+func NewClick(captchaType string, store captcha.Storer) (captcha.Driver, error) {
 	a := &Click{
 		Base:   NewBase(store),
 		maxAge: captcha.MaxAge,
 		cType:  captchaType,
 	}
+	var err error
 	if captchaType == `shape` {
-		a.initShape()
+		err = a.initShape()
 	} else {
-		a.initBasic()
+		err = a.initBasic()
 	}
-	return a
+	return a, err
 }
 
 type Click struct {

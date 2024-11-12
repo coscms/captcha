@@ -1,14 +1,12 @@
 package rotate
 
 import (
-	"log"
-
 	"github.com/wenlng/go-captcha-assets/resources/images"
 	"github.com/wenlng/go-captcha/v2/base/option"
 	"github.com/wenlng/go-captcha/v2/rotate"
 )
 
-func (a *Rotate) initBasic() {
+func (a *Rotate) initBasic() error {
 	builder := rotate.NewBuilder(rotate.WithRangeAnglePos([]option.RangeVal{
 		{Min: 20, Max: 330},
 	}))
@@ -16,7 +14,7 @@ func (a *Rotate) initBasic() {
 	// background images
 	imgs, err := images.GetImages()
 	if err != nil {
-		log.Fatalln(err)
+		return err
 	}
 
 	// set resources
@@ -25,4 +23,5 @@ func (a *Rotate) initBasic() {
 	)
 
 	a.b = builder.Make()
+	return err
 }

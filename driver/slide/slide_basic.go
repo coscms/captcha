@@ -1,14 +1,12 @@
 package slide
 
 import (
-	"log"
-
 	"github.com/wenlng/go-captcha-assets/resources/images"
 	"github.com/wenlng/go-captcha-assets/resources/tiles"
 	"github.com/wenlng/go-captcha/v2/slide"
 )
 
-func (a *Slide) initBasic() {
+func (a *Slide) initBasic() error {
 	builder := slide.NewBuilder(
 		//slide.WithGenGraphNumber(2),
 		slide.WithEnableGraphVerticalRandom(true),
@@ -17,12 +15,12 @@ func (a *Slide) initBasic() {
 	// background images
 	imgs, err := images.GetImages()
 	if err != nil {
-		log.Fatalln(err)
+		return err
 	}
 
 	graphs, err := tiles.GetTiles()
 	if err != nil {
-		log.Fatalln(err)
+		return err
 	}
 
 	var newGraphs = make([]*slide.GraphImage, 0, len(graphs))
@@ -42,4 +40,5 @@ func (a *Slide) initBasic() {
 	)
 
 	a.b = builder.Make()
+	return err
 }

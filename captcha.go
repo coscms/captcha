@@ -1,9 +1,19 @@
 package captcha
 
-func New() *Captcha {
-	return &Captcha{}
+var drivers = map[string]Constructor{}
+
+func Register(name string, constructor Constructor) {
+	drivers[name] = constructor
 }
 
-type Captcha struct {
-	instance Driver
+func Open(name string, cType string, store Storer) (Driver, error) {
+	constructor, ok := drivers[name]
+	if !ok {
+		return nil, ErrUnsupported
+	}
+	return constructor(cType, store)
+}
+
+func Unregister(name string) {
+	delete(drivers, name)
 }
