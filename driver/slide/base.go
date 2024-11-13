@@ -6,8 +6,8 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/admpub/go-captcha/v2/slide"
 	"github.com/coscms/captcha"
-	"github.com/wenlng/go-captcha/v2/slide"
 )
 
 func NewBase(store captcha.Storer) *Base {

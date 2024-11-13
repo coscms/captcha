@@ -2,13 +2,14 @@ module github.com/coscms/captcha
 
 go 1.23.1
 
-replace github.com/wenlng/go-captcha/v2 => ../../admpub/go-captcha/v2
+// replace github.com/admpub/go-captcha => ../../admpub/go-captcha
 
 require (
 	github.com/admpub/cache v0.7.2
+	github.com/admpub/go-captcha/v2 v2.0.2
 	github.com/golang/freetype v0.0.0-20170609003504-e2365dfdc4a0
+	github.com/webx-top/com v1.3.10
 	github.com/wenlng/go-captcha-assets v1.0.1
-	github.com/wenlng/go-captcha/v2 v2.0.1
 )
 
 require (
@@ -22,7 +23,6 @@ require (
 	github.com/jtolds/gls v4.20.0+incompatible // indirect
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
 	github.com/modern-go/reflect2 v1.0.2 // indirect
-	github.com/webx-top/com v1.3.10 // indirect
 	github.com/webx-top/echo v1.11.2 // indirect
 	golang.org/x/crypto v0.28.0 // indirect
 	golang.org/x/image v0.22.0 // indirect

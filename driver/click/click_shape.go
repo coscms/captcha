@@ -1,10 +1,10 @@
 package click
 
 import (
+	"github.com/admpub/go-captcha/v2/base/option"
+	"github.com/admpub/go-captcha/v2/click"
 	"github.com/wenlng/go-captcha-assets/resources/images"
 	"github.com/wenlng/go-captcha-assets/resources/shapes"
-	"github.com/wenlng/go-captcha/v2/base/option"
-	"github.com/wenlng/go-captcha/v2/click"
 )
 
 func (a *Click) initShape() error {

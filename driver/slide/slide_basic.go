@@ -3,7 +3,7 @@ package slide
 import (
 	"github.com/wenlng/go-captcha-assets/resources/images"
 	"github.com/wenlng/go-captcha-assets/resources/tiles"
-	"github.com/wenlng/go-captcha/v2/slide"
+	"github.com/admpub/go-captcha/v2/slide"
 )
 
 func (a *Slide) initBasic() error {

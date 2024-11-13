@@ -6,8 +6,8 @@ import (
 	"fmt"
 	"strconv"
 
+	"github.com/admpub/go-captcha/v2/click"
 	"github.com/coscms/captcha"
-	"github.com/wenlng/go-captcha/v2/click"
 )
 
 func init() {

@@ -5,8 +5,8 @@ import (
 	"encoding/json"
 	"fmt"
 
+	"github.com/admpub/go-captcha/v2/rotate"
 	"github.com/coscms/captcha"
-	"github.com/wenlng/go-captcha/v2/rotate"
 )
 
 func init() {
