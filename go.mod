@@ -1,6 +1,6 @@
 module github.com/coscms/captcha
 
-go 1.23.1
+go 1.22
 
 // replace github.com/admpub/go-captcha => ../../admpub/go-captcha
 
