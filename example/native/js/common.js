@@ -10,6 +10,10 @@ var Ajax = (function () {
         }
     }
 
+    function requestJQuery(options){
+        $.ajax(options);
+    }
+
     function requestHandler(options){
         options = options || {}
         options.type = (options.type || "GET").toUpperCase()
@@ -25,20 +29,19 @@ var Ajax = (function () {
             xhr.send(params);
         }
 
-        xhr.timeout = options.timeout
-        setTimeout(function(){
-            if(xhr.readySate !== 4){
-                xhr.abort();
-            }
-        }, options.timeout)
+        xhr.timeout = options.timeout;
 
         xhr.onreadystatechange = function(){
             if(xhr.readyState === 4){
                 var status = xhr.status;
                 if(status >= 200 && status < 300 || status === 304){
-                    var data = xhr.responseText
-                    if (isJSONString(data)) {
-                        data = eval("("+xhr.responseText+")")
+                    var data = xhr.responseText, contentType = String(xhr.getResponseHeader("Content-Type")).split(";")[0];
+                    if(contentType=="application/json"){
+                        try {
+                            data = JSON.parse(data);
+                        } catch(e) {
+                            console.error(e)
+                        }
                     }
                     options.success&&options.success(data, xhr.responseXML);
                 }else{
@@ -47,17 +50,6 @@ var Ajax = (function () {
             }
             options.complete&&options.complete(status);
         }
-    }
-
-    function isJSONString(str) {
-        if (typeof str == 'string') {
-            try {
-                var obj = JSON.parse(str)
-                return typeof obj == 'object' && obj
-            } catch(e) {}
-        }
-
-        return false
     }
 
     function ajaxFormatParams(data){
