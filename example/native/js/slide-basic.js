@@ -1,7 +1,9 @@
 
-var Captcha = (function () {
-    var getCaptDataApi = window.GetCaptchaDataApi ? window.GetCaptchaDataApi : "/api/go-captcha-data/slide-basic"
-    var checkCaptDataApi = window.CheckCaptchaDataApi ? window.CheckCaptchaDataApi : "/api/go-captcha-check-data/slide-basic"
+var CaptchaSlideBasic = function (options) {
+    var getCaptDataApi = options.dataApi || "/api/go-captcha-data/slide-basic"
+    var checkCaptDataApi = options.verifyApi || "/api/go-captcha-check-data/slide-basic"
+    if(!options.success) options.success=function(){alert("验证成功")}
+    if(!options.error) options.error=function(){alert("验证失败")}
 
     var captchaKey = ""
     var pointX = 0
@@ -206,17 +208,17 @@ var Captcha = (function () {
             captchaBtnControlDom.classList.remove(activeDefaultClassName)
             captchaBtnControlDom.classList.remove(activeOverClassName)
             if (data['code'] === 0) {
-                alert("验证成功")
                 captchaBtnControlDom.classList.remove(activeErrorClassName)
                 captchaBtnControlDom.classList.add(activeSuccessClassName)
                 setTimeout(function () {
                     handleClickClose()
                 }, 200)
+                options.success && options.success.apply(this,arguments)
             } else {
-                alert("验证失败")
                 captchaBtnControlDom.classList.remove(activeSuccessClassName)
                 captchaBtnControlDom.classList.add(activeErrorClassName)
                 requestCaptchaData()
+                options.error && options.error.apply(this,arguments)
             }
         }, function(e){
             captchaBtnControlDom.classList.remove(activeDefaultClassName)
@@ -224,11 +226,13 @@ var Captcha = (function () {
             captchaBtnControlDom.classList.remove(activeSuccessClassName)
             captchaBtnControlDom.classList.add(activeErrorClassName)
             requestCaptchaData()
+            options.networkError && options.networkError.apply(this,arguments)
         }, function () {
             captchaKey = ""
+            options.complete && options.complete.apply(this,arguments)
         })
     }
 
     __initialize()
     return {}
-})();
+};

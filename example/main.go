@@ -31,7 +31,7 @@ func main() {
 	}
 	mux := http.NewServeMux()
 	mux.Handle(`/`, http.FileServer(http.FS(static)))
-	mux.HandleFunc(`GET /captcha/get/{driver}/{type}`, func(w http.ResponseWriter, r *http.Request) {
+	mux.HandleFunc(`GET /captcha/{driver}/{type}`, func(w http.ResponseWriter, r *http.Request) {
 		ctx := r.Context()
 		c, err := captcha.GetInstance(r.PathValue(`driver`), r.PathValue(`type`))
 		if err != nil {
@@ -45,7 +45,7 @@ func main() {
 		}
 		captcha.JSON(w, response{Code: 0, Data: data})
 	})
-	mux.HandleFunc(`POST /captcha/verify/{driver}/{type}`, func(w http.ResponseWriter, r *http.Request) {
+	mux.HandleFunc(`POST /captcha/{driver}/{type}`, func(w http.ResponseWriter, r *http.Request) {
 		ctx := r.Context()
 		c, err := captcha.GetInstance(r.PathValue(`driver`), r.PathValue(`type`))
 		if err != nil {

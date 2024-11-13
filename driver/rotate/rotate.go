@@ -17,11 +17,14 @@ const (
 	TypeBasic = `basic`
 )
 
-func NewRotate(captchaType string, store captcha.Storer) (captcha.Driver, error) {
+func NewRotate(captchaType string, store captcha.Storer, options ...captcha.Option) (captcha.Driver, error) {
 	a := &Rotate{
 		Base:   NewBase(store),
 		maxAge: captcha.MaxAge,
 		cType:  captchaType,
+	}
+	for _, option := range options {
+		option(a)
 	}
 	err := a.initBasic()
 	return a, err
@@ -32,6 +35,9 @@ type Rotate struct {
 	maxAge int64 // seconds
 	b      rotate.Captcha
 	cType  string
+}
+
+func (a *Rotate) SetOption(key string, value interface{}) {
 }
 
 func (a *Rotate) MakeData(ctx context.Context) (*captcha.Data, error) {
@@ -46,12 +52,12 @@ func (a *Rotate) MakeData(ctx context.Context) (*captcha.Data, error) {
 
 	masterImageBase64, err := gen.GetMasterImage().ToBase64()
 	if err != nil {
-		return nil, fmt.Errorf(`%w: %v`, captcha.ErrBase64EncodeFailed,err)
+		return nil, fmt.Errorf(`%w: %v`, captcha.ErrBase64EncodeFailed, err)
 	}
 
 	thumbImageBase64, err := gen.GetThumbImage().ToBase64()
 	if err != nil {
-		return nil, fmt.Errorf(`%w: %v`, captcha.ErrBase64EncodeFailed,err)
+		return nil, fmt.Errorf(`%w: %v`, captcha.ErrBase64EncodeFailed, err)
 	}
 
 	jsonBytes, err := json.Marshal(blockData)

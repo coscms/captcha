@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"strconv"
 
 	"github.com/coscms/captcha"
 	"github.com/wenlng/go-captcha/v2/click"
@@ -18,11 +19,14 @@ const (
 	TypeShape = `shape`
 )
 
-func NewClick(captchaType string, store captcha.Storer) (captcha.Driver, error) {
+func NewClick(captchaType string, store captcha.Storer, options ...captcha.Option) (captcha.Driver, error) {
 	a := &Click{
 		Base:   NewBase(store),
 		maxAge: captcha.MaxAge,
 		cType:  captchaType,
+	}
+	for _, option := range options {
+		option(a)
 	}
 	var err error
 	if captchaType == `shape` {
@@ -35,10 +39,24 @@ func NewClick(captchaType string, store captcha.Storer) (captcha.Driver, error) 
 
 type Click struct {
 	*Base
-	maxAge int64 // seconds
-	b      click.Captcha
-	bLight click.Captcha
-	cType  string
+	maxAge    int64 // seconds
+	b         click.Captcha
+	bLight    click.Captcha
+	cType     string
+	isChinese bool
+}
+
+func (a *Click) SetOption(key string, value interface{}) {
+	if key == `isChinese` {
+		switch v := value.(type) {
+		case bool:
+			a.isChinese = v
+		case nil:
+			a.isChinese = false
+		default:
+			a.isChinese, _ = strconv.ParseBool(fmt.Sprint(v))
+		}
+	}
 }
 
 func (a *Click) MakeData(ctx context.Context) (*captcha.Data, error) {
