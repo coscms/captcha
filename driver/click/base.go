@@ -18,6 +18,10 @@ type Base struct {
 	store captcha.Storer
 }
 
+func (a *Base) Storer() captcha.Storer {
+	return a.store
+}
+
 func (a *Base) Verify(ctx context.Context, key string, response string) error {
 	if len(key) == 0 || len(response) == 0 {
 		return fmt.Errorf(`%w: %s`, captcha.ErrParameterRequired, `response or key`)

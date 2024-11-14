@@ -10,6 +10,7 @@ type Driver interface {
 	OptionSetter
 	MakeData(ctx context.Context) (*Data, error)
 	Verify(ctx context.Context, key string, response string) error
+	Storer() Storer
 }
 
 type OptionSetter interface {
