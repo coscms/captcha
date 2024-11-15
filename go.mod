@@ -6,7 +6,7 @@ go 1.22
 
 require (
 	github.com/admpub/cache v0.7.2
-	github.com/admpub/go-captcha/v2 v2.0.2
+	github.com/admpub/go-captcha/v2 v2.0.3
 	github.com/golang/freetype v0.0.0-20170609003504-e2365dfdc4a0
 	github.com/webx-top/com v1.3.10
 	github.com/wenlng/go-captcha-assets v1.0.1
