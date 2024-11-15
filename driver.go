@@ -70,4 +70,4 @@ type Tile struct {
 
 type Option func(d OptionSetter)
 
-const MaxAge = 1800 //seconds
+const MaxAge = 300 //seconds

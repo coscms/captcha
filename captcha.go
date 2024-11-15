@@ -41,3 +41,7 @@ func GetInstance(driverName string, captchaType string) (Driver, error) {
 	}
 	return instance, nil
 }
+
+func GetInstanceOk(driverName string, captchaType string) (Driver, bool) {
+	return instances.GetOk(driverName + `.` + captchaType)
+}

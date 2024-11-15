@@ -14,4 +14,8 @@ var (
 
 	// common
 	ErrUnsupported = errors.New("[captcha]unsupported")
+
+	// singleon
+	ErrStorerInitFailed  = errors.New("[captcha]storer initialization failed")
+	ErrCaptchaInitFailed = errors.New("[captcha]captcha initialization failed")
 )
