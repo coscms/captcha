@@ -56,12 +56,12 @@ func (a *Slide) MakeData(ctx context.Context) (*captcha.Data, error) {
 		return nil, captcha.ErrGenerateFailed
 	}
 
-	masterImageBase64, err := gen.GetMasterImage().ToBase64Data()
+	masterImageBase64, err := gen.GetMasterImage().ToBase64()
 	if err != nil {
 		return nil, fmt.Errorf(`%w: %v`, captcha.ErrBase64EncodeFailed, err)
 	}
 
-	tileImageBase64, err := gen.GetTileImage().ToBase64Data()
+	tileImageBase64, err := gen.GetTileImage().ToBase64()
 	if err != nil {
 		return nil, fmt.Errorf(`%w: %v`, captcha.ErrBase64EncodeFailed, err)
 	}

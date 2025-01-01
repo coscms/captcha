@@ -76,12 +76,12 @@ func (a *Click) MakeData(ctx context.Context) (*captcha.Data, error) {
 		return nil, captcha.ErrGenerateFailed
 	}
 
-	masterImageBase64, err := gen.GetMasterImage().ToBase64Data()
+	masterImageBase64, err := gen.GetMasterImage().ToBase64()
 	if err != nil {
 		return nil, fmt.Errorf(`%w: %v`, captcha.ErrBase64EncodeFailed, err)
 	}
 
-	thumbImageBase64, err := gen.GetThumbImage().ToBase64Data()
+	thumbImageBase64, err := gen.GetThumbImage().ToBase64()
 	if err != nil {
 		return nil, fmt.Errorf(`%w: %v`, captcha.ErrBase64EncodeFailed, err)
 	}
