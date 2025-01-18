@@ -14,7 +14,9 @@ func Initialize(store captcha.Storer) error {
 	}
 	captcha.RegisterInstance(`click`, click.TypeShape, clickShape)
 
-	clickBasic, err := captcha.Open(`click`, click.TypeBasic, store)
+	clickBasic, err := captcha.Open(`click`, click.TypeBasic, store, func(d captcha.OptionSetter) {
+		//d.SetOption(`isChinese`, true)
+	})
 	if err != nil {
 		return err
 	}

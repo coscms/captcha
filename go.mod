@@ -2,16 +2,14 @@ module github.com/coscms/captcha
 
 go 1.23
 
-toolchain go1.23.1
-
 // replace github.com/admpub/go-captcha => ../../admpub/go-captcha
 
 require (
 	github.com/admpub/cache v0.8.0
+	github.com/admpub/go-captcha-assets v0.0.0-20250118155016-6be2fe25ee51
 	github.com/admpub/go-captcha/v2 v2.0.5
 	github.com/golang/freetype v0.0.0-20170609003504-e2365dfdc4a0
 	github.com/webx-top/com v1.3.20
-	github.com/wenlng/go-captcha-assets v1.0.1
 )
 
 require (

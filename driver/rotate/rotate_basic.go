@@ -1,9 +1,9 @@
 package rotate
 
 import (
+	"github.com/admpub/go-captcha-assets/resources/images"
 	"github.com/admpub/go-captcha/v2/base/option"
 	"github.com/admpub/go-captcha/v2/rotate"
-	"github.com/wenlng/go-captcha-assets/resources/images"
 )
 
 func (a *Rotate) initBasic() error {

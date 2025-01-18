@@ -8,6 +8,7 @@ import (
 
 	"github.com/admpub/go-captcha/v2/click"
 	"github.com/coscms/captcha"
+	"github.com/golang/freetype/truetype"
 )
 
 func init() {
@@ -44,10 +45,12 @@ type Click struct {
 	bLight    click.Captcha
 	cType     string
 	isChinese bool
+	font      *truetype.Font
 }
 
 func (a *Click) SetOption(key string, value interface{}) {
-	if key == `isChinese` {
+	switch key {
+	case `isChinese`:
 		switch v := value.(type) {
 		case bool:
 			a.isChinese = v
@@ -55,6 +58,10 @@ func (a *Click) SetOption(key string, value interface{}) {
 			a.isChinese = false
 		default:
 			a.isChinese, _ = strconv.ParseBool(fmt.Sprint(v))
+		}
+	case `font`:
+		if v, ok := value.(*truetype.Font); ok {
+			a.font = v
 		}
 	}
 }

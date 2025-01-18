@@ -5,11 +5,11 @@ import (
 
 	"github.com/golang/freetype/truetype"
 
-	"github.com/wenlng/go-captcha-assets/bindata/chars"
-	"github.com/wenlng/go-captcha-assets/resources/fonts/fzshengsksjw"
-
-	//"github.com/wenlng/go-captcha-assets/resources/fonts/yrdzst"
-	"github.com/wenlng/go-captcha-assets/resources/images"
+	"github.com/admpub/go-captcha-assets/bindata/chars"
+	//"github.com/admpub/go-captcha-assets/resources/fonts/fzshengsksjw"
+	//"github.com/admpub/go-captcha-assets/resources/fonts/yrdzst"
+	"github.com/admpub/go-captcha-assets/resources/images"
+	"github.com/coscms/captcha/fonts"
 
 	"github.com/admpub/go-captcha/v2/base/option"
 	"github.com/admpub/go-captcha/v2/click"
@@ -49,19 +49,21 @@ func (a *Click) initBasic() error {
 
 	// fonts
 	var font *truetype.Font
-	font, err = fzshengsksjw.GetFont()
-	if err != nil {
-		return err
+	if a.font != nil {
+		font = a.font
+	} else {
+		// font, err = yrdzst.GetFont()
+		// font, err = fzshengsksjw.GetFont()
+		font, err = fonts.GetFont()
+		if err != nil {
+			return err
+		}
 	}
 
 	var masterResource click.Resource
 	if a.isChinese {
 		masterResource = click.WithChars(chars.GetChineseChars())
 	} else {
-		// font, err = yrdzst.GetFont()
-		// if err != nil {
-		// 	return err
-		// }
 		//masterResource=click.WithChars(chars.GetAlphaChars())
 		masterResource = click.WithChars(strings.Split("abcdefghijkmnpqrstuvwxy3456789ABCDEFGHJKLMNPQRSTUVWXY", ""))
 	}
