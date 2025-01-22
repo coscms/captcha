@@ -23,14 +23,13 @@ func (a *Slide) initBasic() error {
 		return err
 	}
 
-	var newGraphs = make([]*slide.GraphImage, 0, len(graphs))
-	for i := 0; i < len(graphs); i++ {
-		graph := graphs[i]
-		newGraphs = append(newGraphs, &slide.GraphImage{
+	newGraphs := make([]*slide.GraphImage, len(graphs))
+	for i, graph := range graphs {
+		newGraphs[i] = &slide.GraphImage{
 			OverlayImage: graph.OverlayImage,
 			MaskImage:    graph.MaskImage,
 			ShadowImage:  graph.ShadowImage,
-		})
+		}
 	}
 
 	// set resources

@@ -5,10 +5,8 @@ import (
 
 	"github.com/golang/freetype/truetype"
 
-	"github.com/admpub/go-captcha-assets/bindata/chars"
-	//"github.com/admpub/go-captcha-assets/resources/fonts/fzshengsksjw"
-	//"github.com/admpub/go-captcha-assets/resources/fonts/yrdzst"
 	"github.com/admpub/go-captcha-assets/resources/images"
+	"github.com/admpub/go-captcha-assets/sourcedata/chars"
 	"github.com/coscms/captcha/fonts"
 
 	"github.com/admpub/go-captcha/v2/base/option"

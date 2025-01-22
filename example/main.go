@@ -9,6 +9,9 @@ import (
 
 	"github.com/coscms/captcha"
 	"github.com/coscms/captcha/driver"
+
+	"github.com/admpub/go-captcha-assets/resources/fonts/fzshengsksjw"
+	//"github.com/admpub/go-captcha-assets/resources/fonts/yrdzst"
 )
 
 //go:embed native
@@ -23,6 +26,19 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
+
+	clickBasic, _ := captcha.GetInstance(`click`, `basic`)
+	font, err := fzshengsksjw.GetFont()
+	if err != nil {
+		panic(err)
+	}
+	clickBasic.SetOption(`font`, font)
+	clickBasic.SetOption(`isChinese`, true)
+	err = clickBasic.Init()
+	if err != nil {
+		panic(err)
+	}
+
 	mux := http.NewServeMux()
 	mux.Handle(`/`, http.FileServer(http.FS(static)))
 	mux.HandleFunc(`GET /captcha/{driver}/{type}`, func(w http.ResponseWriter, r *http.Request) {
