@@ -29,12 +29,7 @@ func NewClick(captchaType string, store captcha.Storer, options ...captcha.Optio
 	for _, option := range options {
 		option(a)
 	}
-	var err error
-	if captchaType == `shape` {
-		err = a.initShape()
-	} else {
-		err = a.initBasic()
-	}
+	err := a.Init()
 	return a, err
 }
 
@@ -46,6 +41,13 @@ type Click struct {
 	cType     string
 	isChinese bool
 	font      *truetype.Font
+}
+
+func (a *Click) Init() error {
+	if a.cType == `shape` {
+		return a.initShape()
+	}
+	return a.initBasic()
 }
 
 func (a *Click) SetOption(key string, value interface{}) {

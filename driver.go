@@ -7,6 +7,7 @@ import (
 type Constructor func(captchaType string, store Storer, options ...Option) (Driver, error)
 
 type Driver interface {
+	Init() error
 	OptionSetter
 	MakeData(ctx context.Context) (*Data, error)
 	Verify(ctx context.Context, key string, response string) error

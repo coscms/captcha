@@ -26,7 +26,7 @@ func NewRotate(captchaType string, store captcha.Storer, options ...captcha.Opti
 	for _, option := range options {
 		option(a)
 	}
-	err := a.initBasic()
+	err := a.Init()
 	return a, err
 }
 
@@ -35,6 +35,10 @@ type Rotate struct {
 	maxAge int64 // seconds
 	b      rotate.Captcha
 	cType  string
+}
+
+func (a *Rotate) Init() error {
+	return a.initBasic()
 }
 
 func (a *Rotate) SetOption(key string, value interface{}) {

@@ -27,12 +27,7 @@ func NewSlide(captchaType string, store captcha.Storer, options ...captcha.Optio
 	for _, option := range options {
 		option(a)
 	}
-	var err error
-	if captchaType == `region` {
-		err = a.initRegion()
-	} else {
-		err = a.initBasic()
-	}
+	err := a.Init()
 	return a, err
 }
 
@@ -41,6 +36,13 @@ type Slide struct {
 	maxAge int64 // seconds
 	b      slide.Captcha
 	cType  string
+}
+
+func (a *Slide) Init() error {
+	if a.cType == `region` {
+		return a.initRegion()
+	}
+	return a.initBasic()
 }
 
 func (a *Slide) SetOption(key string, value interface{}) {
